@@ -1,0 +1,163 @@
+// ─── Callout ───
+// Usage: !callout warning
+//        Your message here
+//        !end
+
+mdplus.mount('callout', (el) => {
+  const type = (el.dataset.args || 'info').split(' ')[0];
+  const icons = { info: 'ℹ', warning: '⚠', success: '✓', danger: '✕' };
+  const raw = el.textContent || '';
+  el.textContent = '';
+  const callout = document.createElement('div');
+  callout.className = 'callout callout-' + type;
+  callout.innerHTML =
+    '<span class="callout-icon">' + (icons[type] || icons.info) + '</span>' +
+    '<div class="callout-body"><p>' + raw + '</p></div>';
+  el.appendChild(callout);
+});
+
+
+// ─── Metrics ───
+// Reads JSON from the element's text content
+// Format: [{ "value": "42", "label": "Users", "delta": "+12%", "trend": "up" }]
+
+mdplus.mount('metrics', (el) => {
+  let data;
+  try { data = JSON.parse(el.textContent); } catch { return; }
+  el.textContent = '';
+
+  const row = document.createElement('div');
+  row.className = 'metrics-row';
+
+  data.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'metric-card';
+    card.innerHTML =
+      '<div class="metric-value">' + m.value + '</div>' +
+      '<div class="metric-label">' + m.label + '</div>' +
+      (m.delta ? '<div class="metric-delta ' + (m.trend || 'flat') + '">' + m.delta + '</div>' : '');
+    row.appendChild(card);
+  });
+
+  el.appendChild(row);
+});
+
+
+// ─── Checklist ───
+// Usage: !checklist
+//        Item one
+//        Item two
+//        !end
+
+mdplus.mount('checklist', (el) => {
+  const raw = (el.textContent || '').trim();
+  let items;
+  try { items = JSON.parse(raw); } catch {
+    items = raw.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+  el.textContent = '';
+
+  const list = document.createElement('ul');
+  list.className = 'checklist';
+
+  const progress = document.createElement('div');
+  progress.className = 'checklist-progress';
+  let checked = 0;
+
+  function updateProgress() {
+    progress.textContent = checked + ' of ' + items.length + ' complete';
+  }
+
+  items.forEach(text => {
+    const li = document.createElement('li');
+    li.className = 'checklist-item';
+    li.innerHTML =
+      '<span class="checklist-box"></span>' +
+      '<span class="checklist-label">' + text + '</span>';
+    li.addEventListener('click', () => {
+      const wasChecked = li.classList.contains('checked');
+      li.classList.toggle('checked');
+      li.querySelector('.checklist-box').textContent = wasChecked ? '' : '✓';
+      checked += wasChecked ? -1 : 1;
+      updateProgress();
+    });
+    list.appendChild(li);
+  });
+
+  updateProgress();
+  el.appendChild(list);
+  el.appendChild(progress);
+});
+
+
+// ─── Tabs ───
+// Reads JSON: [{ "label": "Tab 1", "content": "HTML content" }]
+
+mdplus.mount('tabs', (el) => {
+  let data;
+  try { data = JSON.parse(el.textContent); } catch { return; }
+  el.textContent = '';
+
+  const tabs = document.createElement('div');
+  tabs.className = 'tabs';
+
+  const bar = document.createElement('div');
+  bar.className = 'tab-bar';
+
+  const panels = [];
+
+  data.forEach((tab, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = tab.label;
+
+    const panel = document.createElement('div');
+    panel.className = 'tab-panel' + (i === 0 ? ' active' : '');
+    panel.innerHTML = tab.content;
+
+    btn.addEventListener('click', () => {
+      bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      panel.classList.add('active');
+    });
+
+    bar.appendChild(btn);
+    panels.push(panel);
+  });
+
+  tabs.appendChild(bar);
+  panels.forEach(p => tabs.appendChild(p));
+  el.appendChild(tabs);
+});
+
+
+// ─── Progress ───
+// Usage: !progress 72 Sprint progress
+// Or:    !progress 72 #27ae60 Sprint progress
+
+mdplus.mount('progress', (el) => {
+  const args = el.dataset.args || '';
+  const parts = args.split(' ');
+  const value = parseInt(parts[0]) || 0;
+  let color = '#7c83ff';
+  let labelStart = 1;
+  if (parts[1] && parts[1].startsWith('#')) {
+    color = parts[1];
+    labelStart = 2;
+  }
+  const label = parts.slice(labelStart).join(' ') || el.textContent || '';
+  el.textContent = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'progress-wrap';
+  wrap.innerHTML =
+    '<div class="progress-header">' +
+      '<span class="progress-label">' + label + '</span>' +
+      '<span class="progress-pct">' + value + '%</span>' +
+    '</div>' +
+    '<div class="progress-bar">' +
+      '<div class="progress-fill" style="width:' + value + '%;background:' + color + '"></div>' +
+    '</div>';
+  el.appendChild(wrap);
+});

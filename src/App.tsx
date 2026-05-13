@@ -74,15 +74,15 @@ function App() {
           </nav>
         )}
 
-        <div className="content">
+        <div className="content" key={activeFile}>
           {activeDoc ? (
             <>
               <div className="doc-meta">
                 <span className="badge">md</span>
-                {activeDoc.style !== null && (
+                {activeDoc.styles.length > 0 && (
                   <span className="badge badge-style">mds</span>
                 )}
-                {activeDoc.script !== null && (
+                {activeDoc.scripts.length > 0 && (
                   <span className="badge badge-script">mdt</span>
                 )}
               </div>

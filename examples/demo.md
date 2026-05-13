@@ -1,26 +1,29 @@
-# Welcome to Markdown Plus
+# ToDesktop — Architecture & Flows
 
-This is a **Markdown Plus** document. It has companion files that add styling and interactivity.
+Every package and external service that powers **ToDesktop Builder** and **ToDesktop for Electron**. Pick a flow on the right to highlight the path through the system and see what gets passed at each step.
 
-## Features
+!diagram
 
-- Standard Markdown rendering
-- Custom styles via `.mds` files
-- Dynamic behavior via `.mdt` files
-- Convention over configuration: just name them the same
+---
 
-## A Table
+## Service Status
 
-| Feature   | Markdown | MD+  |
-|-----------|----------|------|
-| Text      | Yes      | Yes  |
-| Styles    | No       | Yes  |
-| Scripts   | No       | Yes  |
+Current health of all production services. Click a service for details.
 
-## Interactive Section
+!status-dashboard
 
-Click the button below to see the script in action:
+---
 
-!counter
+## API Reference
 
-> "Simplicity is the ultimate sophistication." -- Leonardo da Vinci
+Core endpoints for the ToDesktop platform. Expand any endpoint to see parameters, auth requirements, and example responses.
+
+!api-reference
+
+---
+
+## Deployment Timeline
+
+Recent deployments across all services. Hover for commit details.
+
+!timeline

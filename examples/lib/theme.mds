@@ -1,0 +1,239 @@
+core {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #c8ccd4;
+  line-height: 1.75;
+}
+
+core h1 { font-size: 2em; color: #fff; margin: 0.4em 0; }
+core h2 { font-size: 1.4em; color: #f0f0f0; margin: 1.5em 0 0.5em; border-bottom: 1px solid #2a2a3e; padding-bottom: 8px; }
+core h3 { font-size: 1.1em; color: #e0e4ec; margin: 1.2em 0 0.4em; }
+core p { margin: 0.6em 0; color: #b0b8c8; }
+core strong { color: #e0e4ec; }
+core em { color: #a0a8b8; }
+core a { color: #7c83ff; text-decoration: none; }
+core a:hover { text-decoration: underline; }
+
+core ul, core ol { padding-left: 1.5em; color: #b0b8c8; }
+core li { margin: 0.3em 0; }
+
+core code {
+  background: #1a1a2e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+  font-family: "SF Mono", "Fira Code", monospace;
+  color: #c8ccd4;
+}
+
+core pre {
+  background: #0f0f1a;
+  border: 1px solid #2a2a3e;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+core pre code { background: none; padding: 0; }
+
+core blockquote {
+  border-left: 3px solid #7c83ff;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  color: #8890a0;
+}
+
+core hr {
+  border: none;
+  border-top: 1px solid #2a2a3e;
+  margin: 2em 0;
+}
+
+core table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+core th { background: #1a1a2e; padding: 8px 12px; text-align: left; font-size: 0.85em; color: #8890a0; border-bottom: 1px solid #2a2a3e; }
+core td { padding: 8px 12px; border-bottom: 1px solid #1a1a2e; color: #b0b8c8; font-size: 0.9em; }
+
+/* --- callout --- */
+
+core .callout {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 1em 0;
+  font-size: 0.9em;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+core .callout-icon { font-size: 1.1em; flex-shrink: 0; margin-top: 1px; }
+core .callout-body { flex: 1; }
+core .callout-body p { margin: 0; }
+
+core .callout-info    { background: #141a2e; border: 1px solid #2980b944; }
+core .callout-warning { background: #1e1c14; border: 1px solid #e6a91744; }
+core .callout-success { background: #141e18; border: 1px solid #27ae6044; }
+core .callout-danger  { background: #1e1418; border: 1px solid #c0392b44; }
+
+/* --- metric cards --- */
+
+core .metrics-row {
+  display: flex;
+  gap: 12px;
+  margin: 1em 0;
+  flex-wrap: wrap;
+}
+
+core .metric-card {
+  flex: 1;
+  min-width: 140px;
+  background: #141422;
+  border: 1px solid #2a2a3e;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+core .metric-value {
+  font-size: 2em;
+  font-weight: 700;
+  color: #fff;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+
+core .metric-label {
+  font-size: 0.75em;
+  color: #6a7080;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+core .metric-delta {
+  font-size: 0.8em;
+  margin-top: 6px;
+}
+
+core .metric-delta.up   { color: #27ae60; }
+core .metric-delta.down { color: #c0392b; }
+core .metric-delta.flat { color: #6a7080; }
+
+/* --- checklist --- */
+
+core .checklist {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+core .checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: 0.9em;
+  color: #b0b8c8;
+}
+
+core .checklist-item:hover { background: #1a1a2e; }
+
+core .checklist-box {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #444;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+  transition: all 0.15s;
+}
+
+core .checklist-item.checked .checklist-box {
+  background: #27ae60;
+  border-color: #27ae60;
+  color: #fff;
+}
+
+core .checklist-item.checked .checklist-label {
+  text-decoration: line-through;
+  color: #555a6e;
+}
+
+core .checklist-progress {
+  font-size: 0.8em;
+  color: #6a7080;
+  margin-top: 8px;
+}
+
+/* --- tabs --- */
+
+core .tabs {
+  margin: 1em 0;
+}
+
+core .tab-bar {
+  display: flex;
+  border-bottom: 1px solid #2a2a3e;
+  gap: 0;
+}
+
+core .tab-btn {
+  padding: 8px 20px;
+  font-size: 0.85em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #6a7080;
+  font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+core .tab-btn:hover { color: #c8ccd4; }
+
+core .tab-btn.active {
+  color: #7c83ff;
+  border-bottom-color: #7c83ff;
+}
+
+core .tab-panel {
+  display: none;
+  padding: 16px 0;
+  font-size: 0.9em;
+  color: #b0b8c8;
+}
+
+core .tab-panel.active { display: block; }
+
+/* --- progress --- */
+
+core .progress-wrap {
+  margin: 1em 0;
+}
+
+core .progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85em;
+  margin-bottom: 6px;
+}
+
+core .progress-label { color: #c8ccd4; }
+core .progress-pct { color: #6a7080; font-family: "SF Mono", "Fira Code", monospace; }
+
+core .progress-bar {
+  height: 8px;
+  background: #1a1a2e;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+core .progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}

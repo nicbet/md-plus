@@ -14,13 +14,17 @@ export default function MarkdownRenderer({ document }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!document.script || !containerRef.current) return;
+    if (!document.scripts.length || !containerRef.current) return;
     const root = containerRef.current;
 
+    // Snapshot original innerHTML on first mount so it survives StrictMode cleanup
     root.querySelectorAll("[data-mdplus-component]").forEach((el) => {
-      el.innerHTML = "";
+      if (!el.hasAttribute("data-mdplus-original")) {
+        el.setAttribute("data-mdplus-original", el.innerHTML);
+      }
     });
 
+    const allScripts = document.scripts.join("\n\n");
     const scriptEl = window.document.createElement("script");
     scriptEl.textContent = `
       (function() {
@@ -28,10 +32,13 @@ export default function MarkdownRenderer({ document }: Props) {
         const mdplus = {
           mount(name, fn) {
             const els = container.querySelectorAll('[data-mdplus-component="' + name + '"]');
-            els.forEach(el => fn(el));
+            els.forEach(el => {
+              el.innerHTML = el.getAttribute('data-mdplus-original') || '';
+              fn(el);
+            });
           }
         };
-        ${document.script}
+        ${allScripts}
       })();
     `;
     root.appendChild(scriptEl);
@@ -42,13 +49,15 @@ export default function MarkdownRenderer({ document }: Props) {
         el.innerHTML = "";
       });
     };
-  }, [document.script, document.markdown]);
+  }, [document.scripts, document.markdown]);
 
-  const processedStyle = document.style ? preprocessMds(document.style) : null;
+  const processedStyles = document.styles.map(preprocessMds);
 
   return (
     <>
-      {processedStyle && <style>{processedStyle}</style>}
+      {processedStyles.map((css, i) => (
+        <style key={i}>{css}</style>
+      ))}
       <div
         ref={containerRef}
         className="mdplus-content"
