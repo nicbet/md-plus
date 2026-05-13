@@ -1,0 +1,11 @@
+mdplus.mount('counter', (el) => {
+  let count = 0;
+  const btn = document.createElement('button');
+  btn.className = 'counter-btn';
+  btn.textContent = `Count: ${count}`;
+  btn.addEventListener('click', () => {
+    count++;
+    btn.textContent = `Count: ${count}`;
+  });
+  el.appendChild(btn);
+});
