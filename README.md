@@ -151,6 +151,12 @@ examples/
     components.mdt             ← shared component library
 ```
 
+## Security
+
+Opening a folder in MD+ is equivalent to trusting its contents to run code in your browser. `.mdt` files execute arbitrary JavaScript and `.mds` files inject arbitrary CSS into the page. This is by design — it's what makes the interactive components possible.
+
+Only open directories from sources you trust, the same way you would only open an `.html` file from a source you trust.
+
 ## Tech Stack
 
 - [React](https://react.dev) + [TypeScript](https://www.typescriptlang.org)
